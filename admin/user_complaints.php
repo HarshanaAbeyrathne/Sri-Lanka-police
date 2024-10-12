@@ -59,7 +59,9 @@ $result = $conn->query($sql);
                     <th class="px-4 py-2">NIC</th>
                     <th class="px-4 py-2">Email</th>
                     <th class="px-4 py-2">Complaint</th>
+                    <th class="px-4 py-2">Location</th>
                     <th class="px-4 py-2">Date Added</th>
+                    <th class="px-4 py-2">Assign to Officer</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,12 +77,16 @@ $result = $conn->query($sql);
                             <td class="border px-4 py-2"><?php echo $row['nic_number']; ?></td>
                             <td class="border px-4 py-2"><?php echo $row['email_address']; ?></td>
                             <td class="border px-4 py-2"><?php echo $row['complaint']; ?></td>
+                            <td class="border px-4 py-2"><?php echo $row['location']; ?></td>
                             <td class="border px-4 py-2"><?php echo $row['date_added']; ?></td>
+                            <td class="border px-4 py-2">
+                                <a href="assign_officer.php?complaint_id=<?php echo $row['complaint_id']; ?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Assign</a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="text-center py-4">No complaints found</td>
+                        <td colspan="12" class="text-center py-4">No complaints found</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -95,4 +101,3 @@ $result = $conn->query($sql);
 
 </body>
 </html>
-d
