@@ -28,7 +28,9 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
             <div class="text-white text-lg font-semibold">
                 OIC Dashboard
             </div>
-
+            <a href="addInvestigation.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+                Add Investigation
+            </a>
             <!-- Right side: User info and Logout -->
             <div class="flex items-center space-x-4">
                 <span class="text-white">Welcome, <?php echo htmlspecialchars($username); ?>!</span>

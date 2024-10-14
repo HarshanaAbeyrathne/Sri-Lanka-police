@@ -42,7 +42,12 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
         <a href="user_complaints.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
             View User Complaints
         </a>
-
+        <a href="addUsers.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+            Add Users
+        </a>
+        <a href="addInvestigation.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+            Add Investigation
+        </a>
         <a href="logout.php" class="mt-4 text-blue-500 hover:underline block">Logout</a>
     </div>
 </body>
