@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Complaint</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-6LadFJTsgUs2ur7F4OAEhw9XHSXp_OM&callback=initMap" async defer></script>
     <script>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
