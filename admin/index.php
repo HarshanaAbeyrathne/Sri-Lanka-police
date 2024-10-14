@@ -18,8 +18,11 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
 </head>
 <body class="bg-gray-100 min-h-screen">
     
+
+
+
 <!-- Navigation Bar -->
-    <nav class="bg-blue-600 p-4">
+    <nav class="bg-blue-900 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Left side: Logo or Name -->
             <div class="text-white text-lg font-semibold">
@@ -34,21 +37,28 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
         </div>
     </nav>
 
-    <div class="text-center">
-        <h1 class="text-3xl font-bold">Welcome to the Admin Dashboard</h1>
-        <p class="mt-4">You have Admin access.</p>
-        
-        <!-- Button to navigate to user complaints page -->
-        <a href="user_complaints.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
-            View User Complaints
-        </a>
-        <a href="addUsers.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
-            Add Users
-        </a>
-        <a href="addInvestigation.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
-            Add Investigation
-        </a>
-        <a href="logout.php" class="mt-4 text-blue-500 hover:underline block">Logout</a>
+    <!-- Main Content with Image Buttons -->
+    <div class="container mx-auto text-center py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            
+            <!-- Button to Add Users -->
+            <a href="addUsers.php" class="block transform hover:scale-105 transition duration-300">
+                <img src="../img/addUser.png" alt="Add Users" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+                <p class="mt-4 text-xl font-bold text-blue-600">Add Users</p>
+            </a>
+            
+            <!-- Button to Add Investigation -->
+            <a href="addInvestigation.php" class="block transform hover:scale-105 transition duration-300">
+                <img src="../img/invistigation.jpg" alt="Add Investigation" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+                <p class="mt-4 text-xl font-bold text-blue-600">Add Investigation</p>
+            </a>
+
+            <!-- Button to View User Complaints -->
+            <a href="user_complaints.php" class="block transform hover:scale-105 transition duration-300">
+                <img src="../img/complaint.jpg" alt="View User Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+                <p class="mt-4 text-xl font-bold text-blue-600">View User Complaints</p>
+            </a>
+        </div>
     </div>
 </body>
 </html>
