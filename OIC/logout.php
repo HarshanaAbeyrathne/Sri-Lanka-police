@@ -5,7 +5,7 @@ session_start();
 session_destroy();
 
 // Optionally unset the session variables (good practice)
-unset($_SESSION['staffid']);
+unset($_SESSION['id']);
 unset($_SESSION['role']);
 unset($_SESSION['username']);
 

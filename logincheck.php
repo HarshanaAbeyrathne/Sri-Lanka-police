@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
         if ($hashed_password === $user['password']) {
 
             // Store user data in session
-            $_SESSION['staffid'] = $user['id'];
+            $_SESSION['id'] = $user['id'];
             $_SESSION['role'] = $user['user_type'];  // Assuming user_type corresponds to role
             $_SESSION['username'] = $user['username'];  // Store the username
 
@@ -40,6 +40,8 @@ if (isset($_POST['login'])) {
                 header("Location: oic/index.php");
             } elseif ($user['user_type'] == 'user') {
                 header("Location: user/index.php");
+            }elseif ($user['user_type'] == 'CDO') {
+                header("Location: CDO/index.php");
             }
             exit;
         } else {

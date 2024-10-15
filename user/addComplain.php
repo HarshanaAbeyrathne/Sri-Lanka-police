@@ -1,10 +1,11 @@
 <?php
 // Include database configuration file
+session_start(); 
 include '../dbconnect.php';
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_POST['user_id']; // assuming user ID is stored in session or form
+    // Fetch the user ID from session
+    $user_id = $_SESSION['id'];  // Assuming user ID is stored in session
     $district = $_POST['district'];
     $nearest_police_station = $_POST['nearest_police_station'];
     $complaint_category = $_POST['complaint_category'];
@@ -14,15 +15,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_address = $_POST['email_address'];
     $complaint = $_POST['complaint'];
     $complaint_subject = $_POST['complaint_subject'];
-    $attachment = $_POST['attachment']; // if handling file uploads, you need to process the file
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
+    $location = $latitude . ', ' . $longitude;  // Concatenate latitude and longitude into a string
+    $attachment = NULL;  // Default value for attachment
+
+    // Handle file upload (for attachments like videos or documents)
+    if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
+        // Set the target directory for saving the file
+        $target_dir = "../files/";
+        $attachment = basename($_FILES['attachment']['name']);
+        $target_file = $target_dir . $attachment;
+
+        // Move the uploaded file to the server directory
+        if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target_file)) {
+            echo "File uploaded successfully.";
+        } else {
+            echo "Error uploading file.";
+            $attachment = NULL;  // Reset if upload fails
+        }
+    }
 
     // Prepare and execute SQL to insert complaint data
     $sql = "INSERT INTO complaint (user_id, district, nearest_police_station, complaint_category, name, address, nic_number, email_address, complaint, complaint_subject, attachment, date_added, location) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), POINT(?, ?))"; // Use POINT data type to store latitude and longitude
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssssssssssdd", $user_id, $district, $nearest_police_station, $complaint_category, $name, $address, $nic_number, $email_address, $complaint, $complaint_subject, $attachment, $latitude, $longitude);
+
+    // Bind parameters according to the table structure
+    $stmt->bind_param("isssssssssss", $user_id, $district, $nearest_police_station, $complaint_category, $name, $address, $nic_number, $email_address, $complaint, $complaint_subject, $attachment, $location);
 
     if ($stmt->execute()) {
         echo "<p class='text-green-500'>Complaint added successfully!</p>";
@@ -65,9 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-gray-100">
     <div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold text-gray-700 mb-6">Add New Complaint</h2>
-        <form method="POST" action="" class="space-y-4">
+        <form method="POST" action="" enctype="multipart/form-data" class="space-y-4">
             <!-- Complaint Form Fields -->
-            <input type="hidden" name="user_id" value="2"> <!-- Assuming user ID is known, can be replaced with session -->
             <div>
                 <label for="district" class="block text-gray-700 font-medium">District:</label>
                 <input type="text" name="district" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md">

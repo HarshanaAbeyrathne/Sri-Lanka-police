@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 // Ensure the user is logged in and has the correct role
-if (!isset($_SESSION['staffid']) || $_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['id']) || $_SESSION['role'] != 'admin') {
     header("Location: ../login.php"); // Redirect if not an Admin
     exit;
 }
@@ -11,7 +11,6 @@ include '../dbconnect.php'; // Ensure this path is correct
 // Fetch all complaints from the database
 $sql = "SELECT * FROM complaint";
 $result = $conn->query($sql);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +21,6 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 min-h-screen">
-
 
 <!-- Navigation Bar -->
 <nav class="bg-blue-900 p-4">
@@ -45,52 +43,59 @@ $result = $conn->query($sql);
 </a>
 
 <!-- Table to show complaints -->
-
-    <table class="table-auto w-full bg-gray-800 text-white rounded-lg shadow-md">
-        <thead>
-            <tr class="bg-blue-900 text-white">
-                <th class="px-4 py-2">Complaint ID</th>
-                <th class="px-4 py-2">User ID</th>
-                <th class="px-4 py-2">District</th>
-                <th class="px-4 py-2">Police Station</th>
-                <th class="px-4 py-2">Category</th>
-                <th class="px-4 py-2">Name</th>
-                <th class="px-4 py-2">NIC</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Complaint</th>
-                <th class="px-4 py-2">Location</th>
-                <th class="px-4 py-2">Date Added</th>
-                <th class="px-4 py-2">Assign to Officer</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <tr class="hover:bg-blue-700 hover:text-white text-center transition duration-300">
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint_id']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['user_id']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['district']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['nearest_police_station']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint_category']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['name']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['nic_number']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['email_address']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['location']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700"><?php echo $row['date_added']; ?></td>
-                        <td class="border px-4 py-2 border-gray-700">
-                            <a href="assign_officer.php?complaint_id=<?php echo $row['complaint_id']; ?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Assign</a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="12" class="text-center py-4">No complaints found</td>
+<table class="table-auto w-full bg-gray-800 text-white rounded-lg shadow-md">
+    <thead>
+        <tr class="bg-blue-900 text-white">
+            <th class="px-4 py-2">Complaint ID</th>
+            <th class="px-4 py-2">User ID</th>
+            <th class="px-4 py-2">District</th>
+            <th class="px-4 py-2">Police Station</th>
+            <th class="px-4 py-2">Category</th>
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">NIC</th>
+            <th class="px-4 py-2">Email</th>
+            <th class="px-4 py-2">Complaint</th>
+            <th class="px-4 py-2">Location</th>
+            <th class="px-4 py-2">Date Added</th>
+            <th class="px-4 py-2">Attachment</th> <!-- New column for attachments -->
+            <th class="px-4 py-2">Assign to Officer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if ($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <tr class="hover:bg-blue-700 hover:text-white text-center transition duration-300">
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint_id']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['user_id']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['district']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['nearest_police_station']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint_category']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['name']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['nic_number']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['email_address']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['complaint']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['location']; ?></td>
+                    <td class="border px-4 py-2 border-gray-700"><?php echo $row['date_added']; ?></td>
+                    <!-- Display attachment download link if exists -->
+                    <td class="border px-4 py-2 border-gray-700">
+                        <?php if (!empty($row['attachment'])): ?>
+                            <a href="../files/<?php echo $row['attachment']; ?>" class="text-blue-500 hover:underline" download>Download Attachment</a>
+                        <?php else: ?>
+                            No Attachment
+                        <?php endif; ?>
+                    </td>
+                    <!-- <td class="border px-4 py-2 border-gray-700">
+                        <a href="assign_officer.php?complaint_id=<?php echo $row['complaint_id']; ?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Assign</a>
+                    </td> -->
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-
+            <?php endwhile; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="13" class="text-center py-4">No complaints found</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 
 </body>
 </html>

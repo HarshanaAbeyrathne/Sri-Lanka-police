@@ -23,7 +23,7 @@
 session_start();
 include 'dbconnect.php'; // Include your database connection
 
-if (isset($_SESSION['staffid'])) {
+if (isset($_SESSION['id'])) {
     // Check the role and redirect accordingly
     if ($_SESSION['role'] == 'admin') {
         header("Location: admin/");
