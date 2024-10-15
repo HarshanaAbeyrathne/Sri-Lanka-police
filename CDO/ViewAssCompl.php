@@ -31,8 +31,50 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assigned Complaints</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .navbar {
+            background-color: #4CAF50; /* Green background for the navbar */
+        }
+        .navbar .btn-logout {
+            background-color: white;
+            color: #4CAF50;
+        }
+        .navbar .btn-logout:hover {
+            background-color: #f1f1f1;
+        }
+        .action-btn {
+            background-color: #2196F3; /* Blue button color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .action-btn:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
+
 </head>
 <body class="bg-gray-100">
+
+<!-- Navigation Bar -->
+<nav class="navbar p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Back to Dashboard Link on the left -->
+        <a href="index.php" class="text-white font-semibold hover:underline">Back to Dashboard</a>
+
+        <!-- Middle Section: Title -->
+        <div class="text-white text-lg font-semibold">
+            CDO - View Assigned Complaints
+        </div>
+
+        <!-- Right Section: Logout Button -->
+        <div class="flex space-x-4">
+            <a href="logout.php" class="btn-logout px-4 py-2 rounded-lg transition duration-300 shadow-md">Logout</a>
+        </div>
+    </div>
+</nav>
     <div class="max-w-6xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold text-gray-700 mb-6">Assigned Complaints</h2>
         <table class="min-w-full bg-white border border-gray-300">

@@ -78,6 +78,12 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
                 <img src="../img/complaint.jpg" alt="View User Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
                 <p class="mt-4 text-xl font-bold">View User Complaints</p>
             </a>
+
+            <!-- Button to View User Complaints -->
+            <a href="ViewAssCompl.php" class="block transform hover:scale-105 transition duration-300">
+                <img src="../img/pin.png" alt="View User Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+                <p class="mt-4 text-xl font-bold">View Assigned complaint</p>
+            </a>
         </div>
     </div>
 </body>
