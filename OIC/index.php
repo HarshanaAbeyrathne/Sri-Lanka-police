@@ -4,7 +4,7 @@
         <?php 
 session_start();
 // Ensure the user is logged in and has the correct role
-if (!isset($_SESSION['staffid']) || $_SESSION['role'] != 'OIC') {
+if (!isset($_SESSION['id']) || $_SESSION['role'] != 'OIC') {
     header("Location: ../login.php"); // Redirect if not OIC
     exit;
 }

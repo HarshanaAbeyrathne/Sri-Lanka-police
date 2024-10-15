@@ -29,8 +29,21 @@
 
 <body class="bg-hero min-h-screen flex items-center justify-center relative">
 
-    <!-- Overlay to dim the background image -->
-    <div class="bg-overlay"></div>
+if (isset($_SESSION['id'])) {
+    // Check the role and redirect accordingly
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: admin/");
+        exit;
+    } elseif ($_SESSION['role'] == 'OIC') {
+        header("Location: oic/"); // Redirect OIC role
+        exit;
+    } elseif ($_SESSION['role'] == 'user') {
+        header("Location: user/"); // Redirect user role
+        exit;
+    }
+}
+?>
+
 
     <!-- Login form -->
     <div class="relative z-10 max-w-md w-full bg-white p-6 rounded-lg shadow-md bg-opacity-90">
