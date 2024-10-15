@@ -15,16 +15,36 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom Styling -->
+    <style>
+                .navbar {
+            background-color: #4CAF50; /* Green background for the navbar */
+        }
+        .navbar .btn-logout {
+            background-color: white;
+            color: #4CAF50;
+        }
+        .navbar .btn-logout:hover {
+            background-color: #f1f1f1;
+        }
+        .action-btn {
+            background-color: #2196F3; /* Blue button color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .action-btn:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     
-
-
-
 <!-- Navigation Bar -->
-    <nav class="bg-blue-900 p-4">
+    <nav class="navbar p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- Left side: Logo or Name -->
+            <!-- Left side: Dashboard Title -->
             <div class="text-white text-lg font-semibold">
                 Admin Dashboard
             </div>
@@ -32,7 +52,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
             <!-- Right side: User info and Logout -->
             <div class="flex items-center space-x-4">
                 <span class="text-white">Welcome, <?php echo htmlspecialchars($username); ?>!</span>
-                <a href="logout.php" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
+                <a href="logout.php" class="btn-logout px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
             </div>
         </div>
     </nav>
@@ -44,19 +64,19 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
             <!-- Button to Add Users -->
             <a href="addUsers.php" class="block transform hover:scale-105 transition duration-300">
                 <img src="../img/addUser.png" alt="Add Users" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
-                <p class="mt-4 text-xl font-bold text-blue-600">Add Users</p>
+                <p class="mt-4 text-xl font-bold">Add Users</p>
             </a>
             
             <!-- Button to Add Investigation -->
             <a href="addInvestigation.php" class="block transform hover:scale-105 transition duration-300">
                 <img src="../img/invistigation.jpg" alt="Add Investigation" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
-                <p class="mt-4 text-xl font-bold text-blue-600">Add Investigation</p>
+                <p class="mt-4 text-xl font-bold">Add Investigation</p>
             </a>
 
             <!-- Button to View User Complaints -->
             <a href="user_complaints.php" class="block transform hover:scale-105 transition duration-300">
                 <img src="../img/complaint.jpg" alt="View User Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
-                <p class="mt-4 text-xl font-bold text-blue-600">View User Complaints</p>
+                <p class="mt-4 text-xl font-bold">View User Complaints</p>
             </a>
         </div>
     </div>

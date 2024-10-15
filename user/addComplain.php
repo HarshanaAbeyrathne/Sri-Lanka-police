@@ -61,8 +61,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
     }
     </script>
+        <style>
+        .navbar {
+            background-color: #4CAF50; /* Green background */
+        }
+        .navbar .btn {
+            background-color: #2196F3; /* Blue button */
+            color: white;
+        }
+        table.dataTable thead th {
+            background-color: #4CAF50; /* Green table header */
+            color: white;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
+
+<!-- Navigation Bar -->
+<nav class="navbar p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Back to Home Link -->
+        <a href="index.php" class="text-white hover:underline">Back to Home</a>
+        
+        <!-- Middle Section: Title -->
+        <div class="text-white text-lg font-semibold">
+            Crime Records Management System
+        </div>
+
+        <!-- Right Section: New Case and View Cases Buttons -->
+        <div class="flex space-x-4">
+            <a href="addComplain.php" class="btn px-4 py-2 rounded-lg hover:bg-blue-700">+ New Case</a>
+            <a href="viewUserComplain.php" class="btn px-4 py-2 rounded-lg hover:bg-blue-700">View Cases</a>
+        </div>
+    </div>
+</nav>
+
+
     <div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold text-gray-700 mb-6">Add New Complaint</h2>
         <form method="POST" action="" class="space-y-4">

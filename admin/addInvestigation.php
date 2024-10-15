@@ -32,25 +32,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-gray-100">
 
 
+
 <!-- Navigation Bar -->
-<nav class="bg-blue-900 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Left side: Logo or Name -->
-            <div class="text-white text-lg font-semibold">
-                Admin - Assign Investigation
-            </div>
+<nav class="bg-green-600 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Back to Dashboard Link on the left -->
+        <a href="index.php" class="text-white hover:underline">Back to Dashboard</a>
 
-            <!-- Right side: Logout -->
-            <div class="flex items-center space-x-4">
-                <a href="logout.php" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
-            </div>
+        <!-- Middle Section: Title -->
+        <div class="text-white text-lg font-semibold">
+            Admin - Add Invistigation
         </div>
-    </nav>
 
-        <!-- Button to go back to the Admin Dashboard -->
-        <a href="index.php" class="mt-4 inline-block bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300 mb-4">
-            Back to Dashboard
-        </a>
+        <!-- Right Section: Logout Button -->
+        <div class="flex space-x-4">
+            <a href="logout.php" class="bg-white text-green-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
+        </div>
+    </div>
+</nav>
+
 
 
     <div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">

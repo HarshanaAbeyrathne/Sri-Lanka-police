@@ -14,9 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $username, $password, $user_type);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>User added successfully!</p>";
+        echo "<p class='text-green-500 text-center mt-4'>User added successfully!</p>";
     } else {
-        echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
+        echo "<p class='text-red-500 text-center mt-4'>Error: " . $conn->error . "</p>";
     }
     $stmt->close();
 }
@@ -30,97 +30,93 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Add & View Users</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-
+<body class="bg-gray-100 min-h-screen">
 
 <!-- Navigation Bar -->
-<nav class="bg-blue-900 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Left side: Logo or Name -->
-            <div class="text-white text-lg font-semibold">
-                Admin - Add new Users
-            </div>
+<nav class="bg-green-600 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Back to Dashboard Link on the left -->
+        <a href="index.php" class="text-white hover:underline">Back to Dashboard</a>
 
-            <!-- Right side: Logout -->
-            <div class="flex items-center space-x-4">
-                <a href="logout.php" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
-            </div>
+        <!-- Middle Section: Title -->
+        <div class="text-white text-lg font-semibold">
+            Admin - Add New Users
         </div>
-    </nav>
 
-        <!-- Button to go back to the Admin Dashboard -->
-        <a href="index.php" class="mt-4 inline-block bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300 mb-4">
-            Back to Dashboard
-        </a>
-
-
-
-    <!-- Form Container with opacity -->
-    <div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md opacity-90">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Add New User</h2>
-        <form method="POST" action="" class="space-y-4">
-            <!-- Username Field -->
-            <div>
-                <label for="username" class="block text-gray-700 font-medium">Username:</label>
-                <input type="text" name="username" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-blue-200" placeholder="Enter Username">
-            </div>
-
-            <!-- Password Field -->
-            <div>
-                <label for="password" class="block text-gray-700 font-medium">Password:</label>
-                <input type="password" name="password" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-blue-200" placeholder="Enter Password">
-            </div>
-
-            <!-- User Type Field -->
-            <div>
-                <label for="user_type" class="block text-gray-700 font-medium">User Type:</label>
-                <select name="user_type" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-blue-200">
-                    <option value="">Select User Type</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                    <option value="CDO">CDO</option>
-                    <option value="OIC">OIC</option>
-                </select>
-            </div>
-
-            <!-- Submit Button -->
-            <div>
-                <input type="submit" value="Add User" class="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </div>
-        </form>
+        <!-- Right Section: Logout Button -->
+        <div class="flex space-x-4">
+            <a href="logout.php" class="bg-white text-green-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
+        </div>
     </div>
+</nav>
 
-    <!-- User Table with opacity -->
-    <div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md opacity-90">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">View Existing Users</h2>
-        <table class="min-w-full bg-white border border-gray-300 opacity-95">
-            <thead>
-                <tr>
-                    <th class="border px-4 py-2 text-gray-700">ID</th>
-                    <th class="border px-4 py-2 text-gray-700">Username</th>
-                    <th class="border px-4 py-2 text-gray-700">User Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Fetch users from the database
-                $sql = "SELECT id, username, user_type FROM users";
-                $result = $conn->query($sql);
+<!-- Form Container -->
+<div class="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Add New User</h2>
+    <form method="POST" action="" class="space-y-4">
+        <!-- Username Field -->
+        <div>
+            <label for="username" class="block text-gray-700 font-medium">Username:</label>
+            <input type="text" name="username" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-green-200" placeholder="Enter Username">
+        </div>
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                                <td class='border px-4 py-2'>" . $row['id'] . "</td>
-                                <td class='border px-4 py-2'>" . $row['username'] . "</td>
-                                <td class='border px-4 py-2'>" . $row['user_type'] . "</td>
-                              </tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='3' class='border px-4 py-2 text-center'>No users found</td></tr>";
+        <!-- Password Field -->
+        <div>
+            <label for="password" class="block text-gray-700 font-medium">Password:</label>
+            <input type="password" name="password" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-green-200" placeholder="Enter Password">
+        </div>
+
+        <!-- User Type Field -->
+        <div>
+            <label for="user_type" class="block text-gray-700 font-medium">User Type:</label>
+            <select name="user_type" required class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring focus:ring-green-200">
+                <option value="">Select User Type</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+                <option value="CDO">CDO</option>
+                <option value="OIC">OIC</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <input type="submit" value="Add User" class="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-200">
+        </div>
+    </form>
+</div>
+
+<!-- User Table -->
+<div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">View Existing Users</h2>
+    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <thead>
+            <tr class="bg-green-600 text-white">
+                <th class="border px-4 py-2">ID</th>
+                <th class="border px-4 py-2">Username</th>
+                <th class="border px-4 py-2">User Type</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-700">
+            <?php
+            // Fetch users from the database
+            $sql = "SELECT id, username, user_type FROM users";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr class='hover:bg-green-100 transition duration-200'>
+                            <td class='border px-4 py-2'>" . $row['id'] . "</td>
+                            <td class='border px-4 py-2'>" . $row['username'] . "</td>
+                            <td class='border px-4 py-2'>" . $row['user_type'] . "</td>
+                          </tr>";
                 }
-                ?>
-            </tbody>
-        </table>
-    </div>
+            } else {
+                echo "<tr><td colspan='3' class='border px-4 py-2 text-center'>No users found</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
