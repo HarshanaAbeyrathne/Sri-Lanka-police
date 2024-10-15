@@ -19,30 +19,29 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Complaints</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 <body class="bg-gray-100 min-h-screen">
 
 <!-- Navigation Bar -->
-<nav class="bg-blue-900 p-4">
+<nav class="bg-green-600 p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <!-- Left side: Logo or Name -->
+        <!-- Back to Dashboard Link on the left -->
+        <a href="index.php" class="text-white hover:underline">Back to Dashboard</a>
+
+        <!-- Middle Section: Title -->
         <div class="text-white text-lg font-semibold">
             Admin - User Complaints
         </div>
 
-        <!-- Right side: Logout -->
-        <div class="flex items-center space-x-4">
-            <a href="logout.php" class="bg-white text-blue-900 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
+        <!-- Right Section: Logout Button -->
+        <div class="flex space-x-4">
+            <a href="logout.php" class="bg-white text-green-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">Logout</a>
         </div>
     </div>
 </nav>
 
-<!-- Button to go back to the Admin Dashboard -->
-<a href="index.php" class="mt-4 inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mb-4">
-    Back to Dashboard
-</a>
-
-<!-- Table to show complaints -->
 <table class="table-auto w-full bg-gray-800 text-white rounded-lg shadow-md">
     <thead>
         <tr class="bg-blue-900 text-white">
@@ -96,6 +95,24 @@ $result = $conn->query($sql);
         <?php endif; ?>
     </tbody>
 </table>
+
+
+<!-- Include jQuery and DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    // Initialize DataTables without the search bar and with the rows dropdown box
+    $(document).ready(function() {
+        $('#complaintTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false, // Disable search bar
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ], // Show rows dropdown
+        });
+    });
+</script>
+
 
 </body>
 </html>
