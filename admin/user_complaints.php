@@ -11,23 +11,6 @@ include '../dbconnect.php'; // Ensure this path is correct
 // Fetch all complaints from the database
 $sql = "SELECT * FROM complaint";
 $result = $conn->query($sql);
-
-// Check if the form has been submitted to update the court value
-if (isset($_POST['update_court'])) {
-    $complaint_id = $_POST['complaint_id'];
-    $court = $_POST['court'];
-
-    // Update the court value in the database
-    $update_sql = "UPDATE complaint SET court = ? WHERE complaint_id = ?";
-    $stmt = $conn->prepare($update_sql);
-    $stmt->bind_param('si', $court, $complaint_id);
-
-    if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Court details updated successfully!</p>";
-    } else {
-        echo "<p class='text-red-500'>Error updating court: " . $conn->error . "</p>";
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +19,6 @@ if (isset($_POST['update_court'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Complaints</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Include DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <style>
         .navbar {
             background-color: #4CAF50; /* Green background for the navbar */
@@ -49,23 +30,83 @@ if (isset($_POST['update_court'])) {
         .navbar .btn-logout:hover {
             background-color: #f1f1f1;
         }
-        .action-btn {
-            background-color: #2196F3; /* Blue button color */
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
         }
+
+        table thead {
+            background-color: #4CAF50; /* Match the navbar green */
+        }
+
+        table th, table td {
+            padding: 4px 6px; /* Reduced padding */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+            font-size: 12px; /* Reduced font size */
+            word-wrap: break-word; /* Allow text wrapping */
+            white-space: normal; /* Allow text to wrap */
+        }
+
+        table th {
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-btn {
+            background-color: #4CAF50; /* Match the navbar green */
+            color: white;
+            padding: 4px 6px; /* Reduced padding */
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 12px; /* Reduced font size */
+        }
+
         .action-btn:hover {
-            background-color: #1976D2; /* Darker blue on hover */
+            background-color: #45a049;
+        }
+
+        /* Set max-width for columns with long text */
+        table td:nth-child(9), /* Complaint */
+        table td:nth-child(10), /* Location */
+        table td:nth-child(11) { /* Court Details */
+            max-width: 150px; /* Adjust as needed */
+        }
+
+        /* Remove overflow to prevent horizontal scrolling */
+        .table-container {
+            overflow: hidden;
+        }
+
+        /* Media query for smaller screens */
+        @media screen and (max-width: 1024px) {
+            body {
+                font-size: 12px;
+            }
+            table th, table td {
+                font-size: 10px;
+                padding: 2px 4px;
+            }
+            .action-btn {
+                font-size: 10px;
+                padding: 2px 4px;
+            }
         }
     </style>
 </head>
-<script>
-        function printTable() {
-            window.print();  // This will trigger the browser's print dialog
-        }
-    </script>
 <body class="bg-gray-100 min-h-screen">
 
 <!-- Navigation Bar -->
@@ -79,12 +120,6 @@ if (isset($_POST['update_court'])) {
             Admin - User Complaints
         </div>
 
-        
-        <!-- Print Report Button -->
-        <button onclick="printTable()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 no-print">
-            Print Report
-        </button>
-
         <!-- Right Section: Logout Button -->
         <div class="flex space-x-4">
             <a href="logout.php" class="btn-logout px-4 py-2 rounded-lg transition duration-300 shadow-md">Logout</a>
@@ -93,55 +128,47 @@ if (isset($_POST['update_court'])) {
 </nav>
 
 <!-- Complaints Table -->
-<div class="container mx-auto mt-6 bg-white p-6 rounded-lg shadow-lg">
+<div class="container mx-auto mt-6 bg-white p-6 rounded-lg shadow-lg table-container">
     <h2 class="text-2xl font-bold text-gray-700 mb-6">User Complaints</h2>
-    <table id="complaintTable" class="min-w-full bg-gray-100 text-gray-700 rounded-lg shadow-md">
+
+    <!-- Table -->
+    <table class="min-w-full text-gray-700 rounded-lg shadow-md">
         <thead>
-            <tr class="bg-green-600 text-white">
-                <th class="px-4 py-2">Complaint ID</th>
-                <th class="px-4 py-2">User ID</th>
-                <th class="px-4 py-2">District</th>
-                <th class="px-4 py-2">Police Station</th>
-                <th class="px-4 py-2">Category</th>
-                <th class="px-4 py-2">Name</th>
-                <th class="px-4 py-2">NIC</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Complaint</th>
-                <th class="px-4 py-2">Location</th>
-                <th class="px-4 py-2">Court</th>
-                <th class="px-4 py-2">Date Added</th>
-                <th class="px-4 py-2">Attachment</th>
+            <tr>
+                <th>Complaint ID</th>
+                <th>User ID</th>
+                <th>District</th>
+                <th>Police Station</th>
+                <th>Category</th>
+                <th>Name</th>
+                <th>NIC</th>
+                <th>Email</th>
+                <th>Complaint</th>
+                <th>Location</th>
+                <th>Court Details</th>
+                <th>Date Added</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
-                    <tr class="hover:bg-green-50 text-center transition duration-300">
-                        <td class="border px-4 py-2"><?php echo $row['complaint_id']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['user_id']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['district']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['nearest_police_station']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['complaint_category']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['name']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['nic_number']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['email_address']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['complaint']; ?></td>
-                        <td class="border px-4 py-2"><?php echo $row['location']; ?></td>
-                        <td class="border px-4 py-2">
-                            <!-- Editable Court Field -->
-                            <form method="POST" action="">
-                                <input type="hidden" name="complaint_id" value="<?php echo $row['complaint_id']; ?>">
-                                <input type="text" name="court" value="<?php echo $row['court']; ?>" class="border px-2 py-1 w-full">
-                                <button type="submit" name="update_court" class="action-btn mt-2">Update Court details</button>
-                            </form>
-                        </td>
-                        <td class="border px-4 py-2"><?php echo $row['date_added']; ?></td>
-                        <td class="border px-4 py-2">
-                            <?php if (!empty($row['attachment'])): ?>
-                                <a href="../files/<?php echo $row['attachment']; ?>" class="text-blue-500 hover:underline" download>Download Attachment</a>
-                            <?php else: ?>
-                                No Attachment
-                            <?php endif; ?>
+                    <tr>
+                        <td><?php echo $row['complaint_id']; ?></td>
+                        <td><?php echo $row['user_id']; ?></td>
+                        <td><?php echo $row['district']; ?></td>
+                        <td><?php echo $row['nearest_police_station']; ?></td>
+                        <td><?php echo $row['complaint_category']; ?></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['nic_number']; ?></td>
+                        <td><?php echo $row['email_address']; ?></td>
+                        <td><?php echo $row['complaint']; ?></td>
+                        <td><?php echo $row['location']; ?></td>
+                        <td><?php echo $row['court']; ?></td>
+                        <td><?php echo $row['date_added']; ?></td>
+                        <td>
+                            <!-- Add a View Button -->
+                            <a href="singalComplDetail.php?id=<?php echo $row['complaint_id']; ?>" class="action-btn">View</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
@@ -153,22 +180,6 @@ if (isset($_POST['update_court'])) {
         </tbody>
     </table>
 </div>
-
-<!-- Include jQuery and DataTables JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script>
-    // Initialize DataTables with custom settings
-    $(document).ready(function() {
-        $('#complaintTable').DataTable({
-            "paging": true,
-            "ordering": true,
-            "info": true,
-            "searching": false, // Disable search bar
-            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ], // Show rows dropdown
-        });
-    });
-</script>
 
 </body>
 </html>
