@@ -38,17 +38,6 @@ $investigation_result = $stmt->get_result();
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <style>
-        .modal {
-            display: none;
-        }
-    </style>
-    <script>
-        function toggleModal() {
-            document.getElementById('news-modal').classList.toggle('hidden');
-        }
-    </script>
-
     <!-- Custom Styling -->
     <style>
         .navbar {
@@ -91,30 +80,24 @@ $investigation_result = $stmt->get_result();
         </div>
     </nav>
 
+    <!-- Display the latest news alert directly on the page -->
+    <div class="max-w-md mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
+        <?php if (isset($latest_news['title']) && isset($latest_news['message'])): ?>
+            <div class="bg-red-600 text-white w-full p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-bold mb-2">News Alert</h2>
+                <p class="text-md font-semibold mb-2"><?php echo htmlspecialchars($latest_news['title']); ?> <span> </span><?php echo nl2br(htmlspecialchars($latest_news['message'])); ?></p>
+       
+            </div>
+        <?php else: ?>
+            <p class="text-gray-700">No latest news available.</p>
+        <?php endif; ?>
+    </div>
+
     <div class="text-center mt-8">
         <h1 class="text-3xl font-bold">Welcome to the User Dashboard</h1>
         <p class="mt-4">You have User access.</p>
         <a href="logout.php" class="mt-4 text-blue-500 hover:underline">Logout</a>
     </div>
-
-    <!-- Modal for News Alert -->
-    <?php if ($latest_news): ?>
-    <div id="news-modal" class="modal fixed inset-0 flex items-center justify-center z-50">
-        <div class="bg-red-600 text-white w-full max-w-lg p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-2">News Alert</h2>
-            <h3 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($latest_news['title']); ?></h3>
-            <p class="mb-4"><?php echo nl2br(htmlspecialchars($latest_news['message'])); ?></p>
-            <button onclick="toggleModal()" class="bg-white text-red-600 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Close</button>
-        </div>
-    </div>
-
-    <!-- Trigger Modal -->
-    <script>
-        window.onload = function() {
-            toggleModal(); // Automatically open the modal when the page loads
-        }
-    </script>
-    <?php endif; ?>
 
     <!-- Section to View Investigation Status -->
     <div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-md">
@@ -144,7 +127,6 @@ $investigation_result = $stmt->get_result();
             </tbody>
         </table>
     </div>
-
 
 </body>
 </html>

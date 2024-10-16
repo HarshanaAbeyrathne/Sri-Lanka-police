@@ -29,6 +29,7 @@
 
 <body class="bg-hero min-h-screen flex items-center justify-center relative">
 
+<?php
 if (isset($_SESSION['id'])) {
     // Check the role and redirect accordingly
     if ($_SESSION['role'] == 'admin') {
