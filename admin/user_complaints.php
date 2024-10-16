@@ -22,6 +22,11 @@ $result = $conn->query($sql);
     <!-- Include DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
+<script>
+        function printTable() {
+            window.print();  // This will trigger the browser's print dialog
+        }
+    </script>
 <body class="bg-gray-100 min-h-screen">
 
 <!-- Navigation Bar -->
@@ -34,6 +39,12 @@ $result = $conn->query($sql);
         <div class="text-white text-lg font-semibold">
             Admin - User Complaints
         </div>
+
+        
+        <!-- Print Report Button -->
+        <button onclick="printTable()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 no-print">
+            Print Report
+        </button>
 
         <!-- Right Section: Logout Button -->
         <div class="flex space-x-4">
