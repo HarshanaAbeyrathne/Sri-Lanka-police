@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("si", $status, $investigation_id);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Investigation status updated successfully!</p>";
+        echo "<script>alert('Investigation status updated successfully!'); </script>";
     } else {
         echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
     }

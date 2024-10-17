@@ -34,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $update_stmt->bind_param('si', $new_password_hashed, $user_id);
             
             if ($update_stmt->execute()) {
-                echo "Password updated successfully!";
+                echo "<script>alert('Password updated successfully!'); </script>";
             } else {
-                echo "Error updating password.";
+                echo "<script>alert('Error updating password.'); </script>";
             }
         } else {
-            echo "New password and confirmation do not match.";
+            echo "<script>alert('New password and confirmation do not match.'); </script>";
         }
     } else {
-        echo "Current password is incorrect.";
+        echo "<script>alert('Current password is incorrect.'); </script>";
     }
 }
 ?>

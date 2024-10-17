@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Move the uploaded file to the server directory
         if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target_file)) {
-            echo "File uploaded successfully.";
+            echo "<script>alert('File uploaded successfully.'); </script>";
         } else {
-            echo "Error uploading file.";
+            echo "<script>alert('Error uploading file.'); </script>";
             $attachment = NULL;  // Reset if upload fails
         }
     }
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isssssssssss", $user_id, $district, $nearest_police_station, $complaint_category, $name, $address, $nic_number, $email_address, $complaint, $complaint_subject, $attachment, $location);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Complaint added successfully!</p>";
+        echo "<script>alert('Complaint added successfully!'); </script>";
     } else {
         echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
     }

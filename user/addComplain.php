@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isssssssssss", $user_id, $district, $nearest_police_station, $complaint_category, $name, $address, $nic_number, $email_address, $complaint, $complaint_subject, $attachment, $location);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Complaint added successfully!</p>";
+        echo "<script>alert('Complaint added successfully!'); </script> ";
     } else {
         echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
     }

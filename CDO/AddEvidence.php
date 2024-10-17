@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("is", $investigation_id, $evidence_description);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Evidence added successfully!</p>";
+        echo "<script>alert('Evidence added successfully!'); </script>";
     } else {
         echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
     }
