@@ -127,6 +127,11 @@ $investigation_result = $stmt->get_result();
             </tbody>
         </table>
     </div>
-
+    <!-- Reset Password Button -->
+    <div class="flex justify-center mt-10">
+        <a href="reset_password.php" class="bg-white text-red-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-md">
+            Reset Password
+        </a>
+    </div>                    
 </body>
 </html>
