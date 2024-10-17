@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Success/Error message -->
         <?php if (isset($success_message)): ?>
-            <p class="text-green-500 text-center mb-4"><?php echo $success_message; ?></p>
+            <p class="text-green-500 text-center mb-4"><?php echo "<script>alert('$success_message'); </script>"; ?></p>
         <?php elseif (isset($error_message)): ?>
             <p class="text-red-500 text-center mb-4"><?php echo $error_message; ?></p>
         <?php endif; ?>

@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ii", $complaint_id, $assigned_to);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500'>Investigation assigned successfully!</p>";
+        echo "<script>alert('Investigation assigned successfully!'); </script>";
     } else {
         echo "<p class='text-red-500'>Error: " . $conn->error . "</p>";
     }

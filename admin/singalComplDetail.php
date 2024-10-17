@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
         $stmt->bind_param('si', $court, $complaint_id);
 
         if ($stmt->execute()) {
-            echo "<p class='text-green-500'>Court details updated successfully!</p>";
+            echo "<script>alert('Court details updated successfully!'); </script> ";
         } else {
             echo "<p class='text-red-500'>Error updating court: " . $conn->error . "</p>";
         }
