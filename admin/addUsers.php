@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssss", $first_name, $surname, $username, $password, $user_type);
 
     if ($stmt->execute()) {
-        echo "<p class='text-green-500 text-center mt-4'>User added successfully!</p>";
+        echo "<script> alert('User added successfully!')</script>";
     } else {
         echo "<p class='text-red-500 text-center mt-4'>Error: " . $conn->error . "</p>";
     }
