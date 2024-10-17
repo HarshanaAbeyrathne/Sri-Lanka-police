@@ -1,3 +1,61 @@
+<?php
+session_start();
+
+// Ensure the user is logged in and has the correct role
+if (!isset($_SESSION['id']) ) {
+    header("Location: ../login.php");
+    exit;
+}
+
+include '../dbconnect.php'; // Ensure this path is correct
+
+// Get the complaint ID from the URL
+if (isset($_GET['id'])) {
+    $complaint_id = $_GET['id'];
+
+    // Handle court update form submission
+    if (isset($_POST['update_court'])) {
+        $court = $_POST['court'];
+        $update_sql = "UPDATE complaint SET court = ? WHERE complaint_id = ?";
+        $stmt = $conn->prepare($update_sql);
+        $stmt->bind_param('si', $court, $complaint_id);
+
+        if ($stmt->execute()) {
+            echo "<p class='text-green-500'>Court details updated successfully!</p>";
+        } else {
+            echo "<p class='text-red-500'>Error updating court: " . $conn->error . "</p>";
+        }
+    }
+
+    // Handle complaint deletion
+    if (isset($_POST['delete_complaint'])) {
+        $delete_sql = "DELETE FROM complaint WHERE complaint_id = ?";
+        $stmt = $conn->prepare($delete_sql);
+        $stmt->bind_param('i', $complaint_id);
+
+        if ($stmt->execute()) {
+            echo "<p class='text-green-500'>Complaint deleted successfully!</p>";
+            // Redirect after deletion
+            header("Location: user_complaints.php");
+            exit;
+        } else {
+            echo "<p class='text-red-500'>Error deleting complaint: " . $conn->error . "</p>";
+        }
+    }
+
+    // Fetch the complaint details from the database
+    $sql = "SELECT * FROM complaint WHERE complaint_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $complaint_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $complaint = $result->fetch_assoc();
+} else {
+    // If no complaint_id is provided, redirect back to the complaints page
+    header("Location: user_complaints.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
