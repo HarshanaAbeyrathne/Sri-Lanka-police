@@ -59,7 +59,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
 
     <!-- Main Content with Image Buttons -->
     <div class="container mx-auto text-center py-10">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="grid grid-cols-4 gap-6">
             
             <!-- Button to Add Users -->
             <a href="addUsers.php" class="block transform hover:scale-105 transition duration-300">
@@ -79,10 +79,10 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
                 <p class="mt-4 text-xl font-bold">View User Complaints</p>
             </a>
 
-            <!-- Button to View User Complaints -->
+            <!-- Button to View Assigned Complaints -->
             <a href="ViewAssCompl.php" class="block transform hover:scale-105 transition duration-300">
-                <img src="../img/pin.png" alt="View User Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
-                <p class="mt-4 text-xl font-bold">View Assigned complaint</p>
+                <img src="../img/pin.png" alt="View Assigned Complaints" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+                <p class="mt-4 text-xl font-bold">View Assigned Complaints</p>
             </a>
         </div>
     </div>
