@@ -1,7 +1,4 @@
-<!--    OIC username = 3333
-        OIC password = 12345    -->
-
-        <?php 
+<?php 
 session_start();
 // Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['id']) || $_SESSION['role'] != 'OIC') {
@@ -41,6 +38,26 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
 <div class="flex justify-center mt-10">
     <a href="addInvestigation.php" class="bg-white text-green-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-md">
         Add Investigation
+    </a>
+</div>
+
+<!-- View Complaint Button -->
+<div class="flex justify-center mt-10">
+    <a href="user_complaints.php" class="bg-white text-green-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-md">
+        View Complaint
+    </a>
+</div>
+
+<div class="flex justify-center mt-10">
+    <a href="addnews.php" class="bg-white text-green-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-md">
+        Add Newa Alert
+    </a>
+</div>
+
+<!-- Reset Password Button -->
+<div class="flex justify-center mt-10">
+    <a href="reset_password.php" class="bg-white text-red-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-md">
+        Reset Password
     </a>
 </div>
 

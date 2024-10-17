@@ -64,6 +64,9 @@ if (isset($_SESSION['id'])) {
                     Login
                 </button>
             </div>
+            <div>
+                <a href="user/UserRegistration.php" class="text-blue-500 hover:underline">Create an account</a>
+            </div>
         </form>
 
         <!-- Display error message if there's an error -->
