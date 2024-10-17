@@ -69,6 +69,9 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Unknown User
         <a href="addComplain.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
             Add Complaint
         </a>
+        <a href="user_complaints.php" class="mt-4 inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+            User Complaints
+        </a>
       
     </div>
     <!-- Reset Password Button -->
